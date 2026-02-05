@@ -109,5 +109,3 @@ npm run remotion
 ## 在现有项目中安装
 
 想要在现有项目中安装 Remotion？请前往：[在现有项目中安装](/docs/brownfield)
-
-<!-- 部署触发测试标记，后续可移除 -->
