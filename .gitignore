@@ -1,0 +1,10 @@
+# macOS / 系统
+.DS_Store
+Thumbs.db
+
+# 常见构建产物（如有）
+node_modules/
+dist/
+build/
+.next/
+.cache/
