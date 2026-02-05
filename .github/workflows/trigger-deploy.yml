@@ -1,0 +1,23 @@
+name: Trigger Website Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'articles/**'
+      - 'docs/**'
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    name: Trigger Website Deployment
+
+    steps:
+      - name: Trigger website repository dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.DISPATCH_TOKEN }} # PAT with repo 权限
+          repository: gakeez/videoascode-web
+          event-type: content-update
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
