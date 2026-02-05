@@ -3,7 +3,6 @@ image: /generated/articles-docs-getting-started.png
 id: getting-started
 title: 创建新项目
 sidebar_label: 安装
-slug: /
 crumb: "让我们开始吧！"
 ---
 
