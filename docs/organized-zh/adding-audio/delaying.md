@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-audio-delaying.png
-title: Delaying Audio
-sidebar_label: Delaying Audio
+title: 延迟音频
+sidebar_label: 延迟音频
 id: delaying
-crumb: 'Audio'
+crumb: '音频'
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Use a [`<Sequence>`](/docs/sequence) with a positive [`from`](/docs/sequence#from) value to delay the audio from playing.
+使用带有正值 [`from`](/docs/sequence#from) 的 [`<Sequence>`](/docs/sequence) 来延迟音频播放。
 
-In the following example, the audio will start playing after 100 frames.
+在以下示例中，音频将在 100 帧后开始播放。
 
 ```tsx twoslash {6-8}
 import {AbsoluteFill, Html5Audio, Sequence, staticFile} from 'remotion';

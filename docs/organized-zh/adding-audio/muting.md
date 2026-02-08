@@ -1,18 +1,18 @@
 ---
 image: /generated/articles-docs-audio-muting.png
-title: Muting Audio
-sidebar_label: Muting Audio
+title: 静音音频
+sidebar_label: 静音音频
 id: muting
-crumb: 'Audio'
+crumb: '音频'
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import {AvailableFrom} from '../../src/components/AvailableFrom';
 
-You may pass in the [`muted`](/docs/html5-audio#muted) prop to [`<Audio>`](/docs/media/audio), [`<Video>`](/docs/media/video), [`<OffthreadVideo>`](/docs/offthreadvideo), [`<Html5Audio>`](/docs/html5-audio) and [`<Html5Video>`](/docs/html5-video) and even change it over time.
+你可以将 [`muted`](/docs/html5-audio#muted) prop 传递给 [`<Audio>`](/docs/media/audio)、[`<Video>`](/docs/media/video)、[`<OffthreadVideo>`](/docs/offthreadvideo)、[`<Html5Audio>`](/docs/html5-audio) 和 [`<Html5Video>`](/docs/html5-video)，甚至可以随时间改变它。
 
-When [`muted`](/docs/html5-audio#muted) is true, audio will be omitted at that time. In the following example, we are muting the track between seconds 2 and 4.
+当 [`muted`](/docs/html5-audio#muted) 为 true 时，音频将在该时间点被省略。在以下示例中，我们在第 2 秒到第 4 秒之间静音轨道。
 
 ```tsx twoslash {9}
 import {AbsoluteFill, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';

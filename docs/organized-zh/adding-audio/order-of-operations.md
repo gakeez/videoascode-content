@@ -1,29 +1,29 @@
 ---
 image: /generated/articles-docs-audio-order-of-operations.png
-title: Order of Operations
-sidebar_label: Order of Operations
+title: 操作顺序
+sidebar_label: 操作顺序
 id: order-of-operations
-crumb: 'Audio'
+crumb: '音频'
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import {AvailableFrom} from '../../src/components/AvailableFrom';
 
-Before Remotion v4.0.141, it was not defined in which order audio and video operations would be applied. Behavior in preview and render could deviate.
+在 Remotion v4.0.141 之前，音频和视频操作的应用顺序并未定义。预览和渲染中的行为可能会不同。
 
-Since Remotion v4.0.141, the order of operations is guaranteed to be the following:
+从 Remotion v4.0.141 开始，操作顺序保证如下：
 
-1. Trim audio (using [`trimBefore`](/docs/html5-audio#trimbefore--trimafter)).
-2. Offset audio (by putting it in a [`<Sequence>`](/docs/sequence)).
-3. Stretch audio (by adding a [`playbackRate`](/docs/html5-audio#playbackrate)).
+1. 修剪音频（使用 [`trimBefore`](/docs/html5-audio#trimbefore--trimafter)）。
+2. 偏移音频（通过将其放入 [`<Sequence>`](/docs/sequence)）。
+3. 拉伸音频（通过添加 [`playbackRate`](/docs/html5-audio#playbackrate)）。
 
-Example for a 30 FPS composition which is 60 frames long:
+以 30 FPS、60 帧长的合成为例：
 
-1. An [`<Html5Audio>`](/docs/html5-audio) tag has a [`trimBefore`](/docs/html5-audio#trimbefore--trimafter) value of 45. The first 1.5 seconds of the audio get trimmed off.
-2. The [`<Html5Audio>`](/docs/html5-audio) tag is in a [`<Sequence>`](/docs/sequence) which starts at `30`. The audio only begins playing at the 1.0 second timeline mark at the 1.5 second audio position.
-3. The [`<Html5Audio>`](/docs/html5-audio) has a [`playbackRate`](/docs/html5-audio#playbackrate) of `2`. The audio gets sped up by 2x, but the starting position and start offset is not affected.
-4. The composition is 60 frames long, so the audio must stop at the 3.5 second mark:
+1. 一个 [`<Html5Audio>`](/docs/html5-audio) 标签的 [`trimBefore`](/docs/html5-audio#trimbefore--trimafter) 值为 45。音频的前 1.5 秒被修剪掉。
+2. [`<Html5Audio>`](/docs/html5-audio) 标签位于一个从 `30` 开始的 [`<Sequence>`](/docs/sequence) 中。音频仅在 1.0 秒时间线标记处从 1.5 秒音频位置开始播放。
+3. [`<Html5Audio>`](/docs/html5-audio) 的 [`playbackRate`](/docs/html5-audio#playbackrate) 为 `2`。音频速度提高 2 倍，但起始位置和开始偏移不受影响。
+4. 合成长 60 帧，所以音频必须在 3.5 秒标记处停止：
    > (comp_duration - offset) \* playback_rate + start_from  
-   > (60 - 30) \* 2 + 45 => frame 105 or the 3.5 second mark
-5. Result: The section of 1.5sec - 3.5sec gets cut out of the audio and is played in the Remotion timeline between frames 30 and 59 at 2x speed.
+   > (60 - 30) \* 2 + 45 => 帧 105 或 3.5 秒标记
+5. 结果：1.5 秒 - 3.5 秒的音频部分被剪切出来，并在 Remotion 时间线的第 30 到 59 帧之间以 2 倍速度播放。

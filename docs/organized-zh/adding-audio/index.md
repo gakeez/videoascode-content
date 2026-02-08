@@ -1,22 +1,22 @@
 ---
 image: /generated/articles-docs-using-audio.png
-title: Using audio
-sidebar_label: Audio
+title: 使用音频
+sidebar_label: 音频
 id: using-audio
-crumb: 'Techniques'
+crumb: '技术'
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Remotion provides powerful capabilities for working with audio in your compositions.
+Remotion 提供了强大的功能来处理合成中的音频。
 
 import {TableOfContents} from './audio/TableOfContents';
 
 <TableOfContents />
 
-## See also
+## 另请参阅
 
-- [Importing assets](/docs/assets)
-- [Audio visualization](/docs/audio/visualization)
-- [`<Html5Audio />`](/docs/html5-audio) tag
+- [导入资源](/docs/assets)
+- [音频可视化](/docs/audio/visualization)
+- [`<Html5Audio />`](/docs/html5-audio) 标签

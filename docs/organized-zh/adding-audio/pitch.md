@@ -1,23 +1,23 @@
 ---
 image: /generated/articles-docs-audio-pitch.png
-title: Controlling Pitch
-sidebar_label: Controlling Pitch
+title: 控制音高
+sidebar_label: 控制音高
 id: pitch
-crumb: 'Audio'
+crumb: '音频'
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 :::warning
-Pitch correction is currently only applied during rendering.
+音高校正目前仅在渲染期间应用。
 :::
 
-You can use the [`toneFrequency`](/docs/html5-audio#tonefrequency) prop to control the pitch of the audio during rendering.
+你可以使用 [`toneFrequency`](/docs/html5-audio#tonefrequency) prop 在渲染期间控制音频的音高。
 
-Values between `0.01` and `2` are accepted, where `1` represents the original pitch. Values less than `1` will decrease the pitch, while values greater than `1` will increase it.
+接受 `0.01` 到 `2` 之间的值，其中 `1` 表示原始音高。小于 `1` 的值会降低音高，而大于 `1` 的值会提高音高。
 
-A [`toneFrequency`](/docs/html5-audio#tonefrequency) of 0.5 would lower the pitch by half, and a [`toneFrequency`](/docs/html5-audio#tonefrequency) of `1.5` would increase the pitch by 50%.
+[`toneFrequency`](/docs/html5-audio#tonefrequency) 为 0.5 会将音高降低一半，[`toneFrequency`](/docs/html5-audio#tonefrequency) 为 `1.5` 会将音高提高 50%。
 
 ```tsx twoslash {7} title="MyComp.tsx"
 import {Html5Audio, staticFile, AbsoluteFill} from 'remotion';

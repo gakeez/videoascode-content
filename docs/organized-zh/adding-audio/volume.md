@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-audio-volume.png
-title: Controlling Volume
-sidebar_label: Controlling Volume
+title: 控制音量
+sidebar_label: 控制音量
 id: volume
-crumb: 'Audio'
+crumb: '音频'
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-You can use the [`volume`](/docs/html5-audio#volume) prop to control the volume.
+你可以使用 [`volume`](/docs/html5-audio#volume) prop 来控制音量。
 
-The simplest way is to pass a number between `0` and `1`.
+最简单的方法是传入一个 `0` 到 `1` 之间的数字。
 
 ```tsx twoslash {7} title="MyComp.tsx"
 import {Html5Audio, staticFile, AbsoluteFill} from 'remotion';
@@ -26,9 +26,9 @@ export const MyComposition = () => {
 };
 ```
 
-## Changing volume over time
+## 随时间改变音量
 
-You can also change volume over time by passing in a function that takes a frame number and returns the volume.
+你也可以通过传入一个接收帧号并返回音量的函数来随时间改变音量。
 
 ```tsx twoslash {8}
 import {AbsoluteFill, Html5Audio, interpolate, staticFile, useVideoConfig} from 'remotion';
@@ -44,24 +44,24 @@ export const MyComposition = () => {
 };
 ```
 
-In this example we are using the [`interpolate()`](/docs/interpolate) function to fade the audio in over 1 second.
+在这个例子中，我们使用 [`interpolate()`](/docs/interpolate) 函数在 1 秒内淡入音频。
 
-Note that because values below 0 are not allowed, we need to set the [`extrapolateLeft: 'clamp'`](/docs/interpolate#extrapolateleft) option to ensure no negative values.
+注意，由于不允许小于 0 的值，我们需要设置 [`extrapolateLeft: 'clamp'`](/docs/interpolate#extrapolateleft) 选项以确保没有负值。
 
-Inside the callback function, the value of `f` starts always `0` when the audio begins to play.  
-It is not the same as the value of [`useCurrentFrame()`](/docs/use-current-frame).
+在回调函数内部，`f` 的值在音频开始播放时总是从 `0` 开始。
+它与 [`useCurrentFrame()`](/docs/use-current-frame) 的值不同。
 
-Prefer using a callback function if the volume is changing. This will enable Remotion to draw a volume curve in the [Studio](/docs/studio) and is more performant.
+如果音量在变化，建议使用回调函数。这将使 Remotion 能够在 [Studio](/docs/studio) 中绘制音量曲线，并且性能更好。
 
-## Limitations<AvailableFrom v="4.0.306" />
+## 限制<AvailableFrom v="4.0.306" />
 
-By default, you'll face 2 limitations by default regarding volume:
+默认情况下，关于音量你会面临 2 个限制：
 
 <div>
-<div><Step>1</Step> It is not possible to set the volume to a value higher than 1.</div>
-<div><Step>2</Step> On iOS Safari, the volume will be set to 1.</div>
+<div><Step>1</Step> 无法将音量设置为大于 1 的值。</div>
+<div><Step>2</Step> 在 iOS Safari 上，音量将被设置为 1。</div>
 </div><br/>
-You can work around these limitations by enabling the Web Audio API for your [`<Html5Audio>`](/docs/html5-audio#usewebaudioapi), [`<Html5Video>`](/docs/html5-video#usewebaudioapi) and [`<OffthreadVideo>`](/docs/offthreadvideo#usewebaudioapi) tags.
+你可以通过为 [`<Html5Audio>`](/docs/html5-audio#usewebaudioapi)、[`<Html5Video>`](/docs/html5-video#usewebaudioapi) 和 [`<OffthreadVideo>`](/docs/offthreadvideo#usewebaudioapi) 标签启用 Web Audio API 来解决这些限制。
 
 ```tsx twoslash
 import {Html5Audio, staticFile, AbsoluteFill} from 'remotion';
@@ -70,14 +70,14 @@ import {Html5Audio, staticFile, AbsoluteFill} from 'remotion';
 <Html5Audio src="https://remotion.media/audio.wav" volume={2} useWebAudioApi crossOrigin="anonymous" />;
 ```
 
-However, this comes with two caveats:
+但是，这有两个注意事项：
 
 <div>
   <div>
-    <Step error>1</Step> You must set the `crossOrigin` prop to `anonymous` and the audio must support CORS.
+    <Step error>1</Step> 你必须将 `crossOrigin` prop 设置为 `anonymous`，并且音频必须支持 CORS。
   </div>
   <div>
-    <Step error>2</Step> On Safari, you cannot combine it with [`playbackRate`](/docs/html5-audio#playbackrate). If you do, the volume will be ignored.
+    <Step error>2</Step> 在 Safari 上，你不能将其与 [`playbackRate`](/docs/html5-audio#playbackrate) 结合使用。如果你这样做，音量将被忽略。
   </div>
 </div>
 <br />

@@ -1,17 +1,17 @@
 ---
 image: /generated/articles-docs-audio-from-video.png
-title: Use Audio from video
-sidebar_label: Use Audio from video
+title: 使用视频中的音频
+sidebar_label: 使用视频中的音频
 id: from-video
-crumb: 'Audio'
+crumb: '音频'
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Audio from [`<Video>`](/docs/media/video), [`<Html5Video>`](/docs/html5-video) and [`<OffthreadVideo>`](/docs/offthreadvideo) tags are also included in the output.
+[`<Video>`](/docs/media/video)、[`<Html5Video>`](/docs/html5-video) 和 [`<OffthreadVideo>`](/docs/offthreadvideo) 标签中的音频也会包含在输出中。
 
-The same principles apply as for audio - you may [trim](/docs/audio/trimming), [delay](/docs/audio/delaying), [mute](/docs/audio/muting), [speed up](/docs/audio/speed) and [reduce the volume](/docs/audio/volume) of your videos.
+同样的原则适用于音频 - 你可以 [修剪](/docs/audio/trimming)、[延迟](/docs/audio/delaying)、[静音](/docs/audio/muting)、[加速](/docs/audio/speed) 和 [降低音量](/docs/audio/volume) 你的视频。
 
 ```tsx twoslash {6} title="MyComp.tsx"
 import {AbsoluteFill, OffthreadVideo, staticFile} from 'remotion';
