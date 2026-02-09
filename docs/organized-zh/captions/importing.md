@@ -3,6 +3,7 @@ image: /generated/articles-docs-captions-importing.png
 sidebar_label: 从 .srt 导入
 title: 将 .srt 字幕导入 Remotion
 crumb: 字幕
+order: 1
 ---
 
 # 将 .srt 字幕导入 Remotion
@@ -14,21 +15,21 @@ crumb: 字幕
 使用 [`staticFile()`](/docs/staticfile) 引用 `public` 文件夹中的 `.srt` 文件，然后获取并解析它：
 
 ```tsx twoslash title="从 .srt 导入字幕"
-import {useState, useEffect, useCallback} from 'react';
-import {AbsoluteFill, staticFile, useDelayRender} from 'remotion';
-import {parseSrt} from '@remotion/captions';
-import type {Caption} from '@remotion/captions';
+import { useState, useEffect, useCallback } from "react";
+import { AbsoluteFill, staticFile, useDelayRender } from "remotion";
+import { parseSrt } from "@remotion/captions";
+import type { Caption } from "@remotion/captions";
 
 export const MyComponent: React.FC = () => {
   const [captions, setCaptions] = useState<Caption[] | null>(null);
-  const {delayRender, continueRender, cancelRender} = useDelayRender();
+  const { delayRender, continueRender, cancelRender } = useDelayRender();
   const [handle] = useState(() => delayRender());
 
   const fetchCaptions = useCallback(async () => {
     try {
-      const response = await fetch(staticFile('subtitles.srt'));
+      const response = await fetch(staticFile("subtitles.srt"));
       const text = await response.text();
-      const {captions: parsed} = parseSrt({input: text});
+      const { captions: parsed } = parseSrt({ input: text });
       setCaptions(parsed);
       continueRender(handle);
     } catch (e) {

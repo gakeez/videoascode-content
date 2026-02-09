@@ -1,12 +1,13 @@
 ---
 image: /generated/articles-docs-captions-index.png
-title: 字幕
-sidebar_label: 概览
+title: 使用字幕
+sidebar_label: 使用字幕
+order: 510
 ---
 
 import {GuideTableOfContents} from './GuideTableOfContents';
 
-# 字幕
+# 使用字幕
 
 了解如何为 Remotion 视频添加字幕。
 

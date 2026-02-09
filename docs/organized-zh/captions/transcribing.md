@@ -3,6 +3,7 @@ image: /generated/articles-docs-captions-transcribing.png
 sidebar_label: 转录
 title: 转录音频
 crumb: 字幕
+order: 2
 ---
 
 # 转录音频
@@ -15,14 +16,14 @@ Remotion 提供了多种内置选项用于转录音频以生成字幕：
 
 ## 对比
 
-|                      | [`@remotion/install-whisper-cpp`](/docs/install-whisper-cpp) | [`@remotion/whisper-web`](/docs/whisper-web)    | [`@remotion/openai-whisper`](/docs/openai-whisper)                                    |
-| -------------------- | ------------------------------------------------------------ | ----------------------------------------------- | ------------------------------------------------------------------------------------- |
-| **环境**      | 服务器 (Node.js)                                             | 客户端 (浏览器)                                | 云端 (API)                                                                           |
-| **速度**            | 快（取决于硬件）                                   | 慢（WASM 开销）                            | 快                                                                                  |
-| **费用**             | 免费                                                         | 免费                                            | 付费 (OpenAI API 定价)                                                             |
-| **离线支持**  | ✅                                                           | ✅                                              | ❌                                                                                    |
+|                | [`@remotion/install-whisper-cpp`](/docs/install-whisper-cpp) | [`@remotion/whisper-web`](/docs/whisper-web)    | [`@remotion/openai-whisper`](/docs/openai-whisper)                                    |
+| -------------- | ------------------------------------------------------------ | ----------------------------------------------- | ------------------------------------------------------------------------------------- |
+| **环境**       | 服务器 (Node.js)                                             | 客户端 (浏览器)                                 | 云端 (API)                                                                            |
+| **速度**       | 快（取决于硬件）                                             | 慢（WASM 开销）                                 | 快                                                                                    |
+| **费用**       | 免费                                                         | 免费                                            | 付费 (OpenAI API 定价)                                                                |
+| **离线支持**   | ✅                                                           | ✅                                              | ❌                                                                                    |
 | **无需服务器** | ❌                                                           | ✅                                              | ✅                                                                                    |
-| **转换函数** | [`toCaptions()`](/docs/install-whisper-cpp/to-captions)      | [`toCaptions()`](/docs/whisper-web/to-captions) | [`openaiWhisperApiToCaptions()`](/docs/openai-whisper/openai-whisper-api-to-captions) |
+| **转换函数**   | [`toCaptions()`](/docs/install-whisper-cpp/to-captions)      | [`toCaptions()`](/docs/whisper-web/to-captions) | [`openaiWhisperApiToCaptions()`](/docs/openai-whisper/openai-whisper-api-to-captions) |
 
 ## `Caption` 类型
 

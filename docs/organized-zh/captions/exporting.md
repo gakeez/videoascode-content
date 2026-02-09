@@ -3,6 +3,7 @@ image: /generated/articles-docs-captions-exporting.png
 sidebar_label: 导出
 title: 导出字幕
 crumb: 字幕
+order: 4
 ---
 
 # 导出字幕
@@ -22,20 +23,20 @@ npx remotion render
 要将字幕导出为单独的 `.srt` 文件，请结合使用 [`<Artifact>`](/docs/artifact) 组件和 [`serializeSrt()`](/docs/captions/serialize-srt)。
 
 ```tsx twoslash title="将字幕导出为 .srt"
-import {Artifact, useCurrentFrame} from 'remotion';
-import {serializeSrt} from '@remotion/captions';
-import type {Caption} from '@remotion/captions';
+import { Artifact, useCurrentFrame } from "remotion";
+import { serializeSrt } from "@remotion/captions";
+import type { Caption } from "@remotion/captions";
 
 const captions: Caption[] = [
   {
-    text: 'Hello ',
+    text: "Hello ",
     startMs: 0,
     endMs: 500,
     timestampMs: 250,
     confidence: 1,
   },
   {
-    text: 'world!',
+    text: "world!",
     startMs: 500,
     endMs: 1000,
     timestampMs: 750,
@@ -57,7 +58,9 @@ export const MyComp: React.FC = () => {
   return (
     <>
       {/* 仅在第一帧发出产物 */}
-      {frame === 0 ? <Artifact filename="subtitles.srt" content={srtContent} /> : null}
+      {frame === 0 ? (
+        <Artifact filename="subtitles.srt" content={srtContent} />
+      ) : null}
       {/* 视频内容的其余部分 */}
     </>
   );
@@ -71,14 +74,14 @@ export const MyComp: React.FC = () => {
 如果你的字幕是逐字的，你可能希望将多个单词分组为单个字幕行。你可以使用 [`createTikTokStyleCaptions()`](/docs/captions/create-tiktok-style-captions) 创建页面，然后将它们转换回 `serializeSrt()` 期望的格式：
 
 ```tsx twoslash title="将字幕分组为行"
-import {serializeSrt, createTikTokStyleCaptions} from '@remotion/captions';
-import type {Caption} from '@remotion/captions';
+import { serializeSrt, createTikTokStyleCaptions } from "@remotion/captions";
+import type { Caption } from "@remotion/captions";
 
 const captions: Caption[] = [];
 
 // ---cut---
 
-const {pages} = createTikTokStyleCaptions({
+const { pages } = createTikTokStyleCaptions({
   captions,
   combineTokensWithinMilliseconds: 3000,
 });

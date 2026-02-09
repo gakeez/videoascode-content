@@ -3,6 +3,7 @@ image: /generated/articles-docs-captions-displaying.png
 sidebar_label: 显示
 title: 显示字幕
 crumb: 字幕
+order: 3
 ---
 
 # 显示字幕
@@ -14,18 +15,18 @@ crumb: 字幕
 首先，获取你的字幕 JSON 文件。使用 [`useDelayRender()`](/docs/use-delay-render) 保持渲染，直到字幕加载完成：
 
 ```tsx twoslash title="获取字幕"
-import {useState, useEffect, useCallback} from 'react';
-import {AbsoluteFill, staticFile, useDelayRender} from 'remotion';
-import type {Caption} from '@remotion/captions';
+import { useState, useEffect, useCallback } from "react";
+import { AbsoluteFill, staticFile, useDelayRender } from "remotion";
+import type { Caption } from "@remotion/captions";
 
 export const MyComponent: React.FC = () => {
   const [captions, setCaptions] = useState<Caption[] | null>(null);
-  const {delayRender, continueRender, cancelRender} = useDelayRender();
+  const { delayRender, continueRender, cancelRender } = useDelayRender();
   const [handle] = useState(() => delayRender());
 
   const fetchCaptions = useCallback(async () => {
     try {
-      const response = await fetch(staticFile('captions.json'));
+      const response = await fetch(staticFile("captions.json"));
       const data = await response.json();
       setCaptions(data);
       continueRender(handle);
@@ -51,9 +52,9 @@ export const MyComponent: React.FC = () => {
 使用 [`createTikTokStyleCaptions()`](/docs/captions/create-tiktok-style-captions) 将字幕分组为页面。`combineTokensWithinMilliseconds` 选项控制一次显示多少单词：
 
 ```tsx twoslash title="创建字幕页面"
-import {useMemo} from 'react';
-import {createTikTokStyleCaptions} from '@remotion/captions';
-import type {Caption} from '@remotion/captions';
+import { useMemo } from "react";
+import { createTikTokStyleCaptions } from "@remotion/captions";
+import type { Caption } from "@remotion/captions";
 
 // 字幕应该多久切换一次（以毫秒为单位）
 // 值越高 = 每页单词越多
@@ -64,7 +65,7 @@ const captions: Caption[] = [];
 
 // ---cut---
 
-const {pages} = useMemo(() => {
+const { pages } = useMemo(() => {
   return createTikTokStyleCaptions({
     captions,
     combineTokensWithinMilliseconds: SWITCH_CAPTIONS_EVERY_MS,
@@ -77,26 +78,31 @@ const {pages} = useMemo(() => {
 遍历页面并使用 [`<Sequence>`](/docs/sequence) 渲染每一个。从页面时间计算开始帧和持续时间：
 
 ```tsx twoslash title="渲染字幕页面"
-import {Sequence, useVideoConfig, AbsoluteFill} from 'remotion';
-import type {TikTokPage} from '@remotion/captions';
+import { Sequence, useVideoConfig, AbsoluteFill } from "remotion";
+import type { TikTokPage } from "@remotion/captions";
 
 const SWITCH_CAPTIONS_EVERY_MS = 1200;
 
 const pages: TikTokPage[] = [];
 
-const CaptionPage: React.FC<{page: TikTokPage}> = ({page}) => <div>{page.text}</div>;
+const CaptionPage: React.FC<{ page: TikTokPage }> = ({ page }) => (
+  <div>{page.text}</div>
+);
 
 // ---cut---
 
 const CaptionedContent: React.FC = () => {
-  const {fps} = useVideoConfig();
+  const { fps } = useVideoConfig();
 
   return (
     <AbsoluteFill>
       {pages.map((page, index) => {
         const nextPage = pages[index + 1] ?? null;
         const startFrame = (page.startMs / 1000) * fps;
-        const endFrame = Math.min(nextPage ? (nextPage.startMs / 1000) * fps : Infinity, startFrame + (SWITCH_CAPTIONS_EVERY_MS / 1000) * fps);
+        const endFrame = Math.min(
+          nextPage ? (nextPage.startMs / 1000) * fps : Infinity,
+          startFrame + (SWITCH_CAPTIONS_EVERY_MS / 1000) * fps
+        );
         const durationInFrames = endFrame - startFrame;
 
         if (durationInFrames <= 0) {
@@ -104,7 +110,11 @@ const CaptionedContent: React.FC = () => {
         }
 
         return (
-          <Sequence key={index} from={startFrame} durationInFrames={durationInFrames}>
+          <Sequence
+            key={index}
+            from={startFrame}
+            durationInFrames={durationInFrames}
+          >
             <CaptionPage page={page} />
           </Sequence>
         );
@@ -119,14 +129,14 @@ const CaptionedContent: React.FC = () => {
 字幕页面包含 `tokens`，你可以用它来高亮当前正在说的单词。这里有一个在单词被说出时高亮它们的示例：
 
 ```tsx twoslash title="渲染带单词高亮的字幕页面"
-import {AbsoluteFill, useCurrentFrame, useVideoConfig} from 'remotion';
-import type {TikTokPage} from '@remotion/captions';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import type { TikTokPage } from "@remotion/captions";
 
-const HIGHLIGHT_COLOR = '#39E508';
+const HIGHLIGHT_COLOR = "#39E508";
 
-const CaptionPage: React.FC<{page: TikTokPage}> = ({page}) => {
+const CaptionPage: React.FC<{ page: TikTokPage }> = ({ page }) => {
   const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
+  const { fps } = useVideoConfig();
 
   // 相对于序列开始的当前时间
   const currentTimeMs = (frame / fps) * 1000;
@@ -136,27 +146,28 @@ const CaptionPage: React.FC<{page: TikTokPage}> = ({page}) => {
   return (
     <AbsoluteFill
       style={{
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <div
         style={{
           fontSize: 80,
-          fontWeight: 'bold',
-          textAlign: 'center',
+          fontWeight: "bold",
+          textAlign: "center",
           // 保留字幕中的空格
-          whiteSpace: 'pre',
+          whiteSpace: "pre",
         }}
       >
         {page.tokens.map((token) => {
-          const isActive = token.fromMs <= absoluteTimeMs && token.toMs > absoluteTimeMs;
+          const isActive =
+            token.fromMs <= absoluteTimeMs && token.toMs > absoluteTimeMs;
 
           return (
             <span
               key={token.fromMs}
               style={{
-                color: isActive ? HIGHLIGHT_COLOR : 'white',
+                color: isActive ? HIGHLIGHT_COLOR : "white",
               }}
             >
               {token.text}
@@ -175,43 +186,51 @@ const CaptionPage: React.FC<{page: TikTokPage}> = ({page}) => {
 <summary>显示完整示例</summary>
 
 ```tsx twoslash title="完整字幕视频示例"
-import {useState, useEffect, useCallback, useMemo} from 'react';
-import {AbsoluteFill, Sequence, staticFile, useCurrentFrame, useDelayRender, useVideoConfig} from 'remotion';
-import {createTikTokStyleCaptions} from '@remotion/captions';
-import type {Caption, TikTokPage} from '@remotion/captions';
+import { useState, useEffect, useCallback, useMemo } from "react";
+import {
+  AbsoluteFill,
+  Sequence,
+  staticFile,
+  useCurrentFrame,
+  useDelayRender,
+  useVideoConfig,
+} from "remotion";
+import { createTikTokStyleCaptions } from "@remotion/captions";
+import type { Caption, TikTokPage } from "@remotion/captions";
 
 const SWITCH_CAPTIONS_EVERY_MS = 1200;
-const HIGHLIGHT_COLOR = '#39E508';
+const HIGHLIGHT_COLOR = "#39E508";
 
-const CaptionPage: React.FC<{page: TikTokPage}> = ({page}) => {
+const CaptionPage: React.FC<{ page: TikTokPage }> = ({ page }) => {
   const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
+  const { fps } = useVideoConfig();
   const currentTimeMs = (frame / fps) * 1000;
   const absoluteTimeMs = page.startMs + currentTimeMs;
 
   return (
     <AbsoluteFill
       style={{
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <div
         style={{
           fontSize: 80,
-          fontWeight: 'bold',
-          textAlign: 'center',
-          whiteSpace: 'pre',
+          fontWeight: "bold",
+          textAlign: "center",
+          whiteSpace: "pre",
         }}
       >
         {page.tokens.map((token) => {
-          const isActive = token.fromMs <= absoluteTimeMs && token.toMs > absoluteTimeMs;
+          const isActive =
+            token.fromMs <= absoluteTimeMs && token.toMs > absoluteTimeMs;
 
           return (
             <span
               key={token.fromMs}
               style={{
-                color: isActive ? HIGHLIGHT_COLOR : 'white',
+                color: isActive ? HIGHLIGHT_COLOR : "white",
               }}
             >
               {token.text}
@@ -225,13 +244,13 @@ const CaptionPage: React.FC<{page: TikTokPage}> = ({page}) => {
 
 export const CaptionedVideo: React.FC = () => {
   const [captions, setCaptions] = useState<Caption[] | null>(null);
-  const {delayRender, continueRender, cancelRender} = useDelayRender();
+  const { delayRender, continueRender, cancelRender } = useDelayRender();
   const [handle] = useState(() => delayRender());
-  const {fps} = useVideoConfig();
+  const { fps } = useVideoConfig();
 
   const fetchCaptions = useCallback(async () => {
     try {
-      const response = await fetch(staticFile('captions.json'));
+      const response = await fetch(staticFile("captions.json"));
       const data = await response.json();
       setCaptions(data);
       continueRender(handle);
@@ -244,7 +263,7 @@ export const CaptionedVideo: React.FC = () => {
     fetchCaptions();
   }, [fetchCaptions]);
 
-  const {pages} = useMemo(() => {
+  const { pages } = useMemo(() => {
     return createTikTokStyleCaptions({
       captions: captions ?? [],
       combineTokensWithinMilliseconds: SWITCH_CAPTIONS_EVERY_MS,
@@ -252,11 +271,14 @@ export const CaptionedVideo: React.FC = () => {
   }, [captions]);
 
   return (
-    <AbsoluteFill style={{backgroundColor: 'black'}}>
+    <AbsoluteFill style={{ backgroundColor: "black" }}>
       {pages.map((page, index) => {
         const nextPage = pages[index + 1] ?? null;
         const startFrame = (page.startMs / 1000) * fps;
-        const endFrame = Math.min(nextPage ? (nextPage.startMs / 1000) * fps : Infinity, startFrame + (SWITCH_CAPTIONS_EVERY_MS / 1000) * fps);
+        const endFrame = Math.min(
+          nextPage ? (nextPage.startMs / 1000) * fps : Infinity,
+          startFrame + (SWITCH_CAPTIONS_EVERY_MS / 1000) * fps
+        );
         const durationInFrames = endFrame - startFrame;
 
         if (durationInFrames <= 0) {
@@ -264,7 +286,11 @@ export const CaptionedVideo: React.FC = () => {
         }
 
         return (
-          <Sequence key={index} from={startFrame} durationInFrames={durationInFrames}>
+          <Sequence
+            key={index}
+            from={startFrame}
+            durationInFrames={durationInFrames}
+          >
             <CaptionPage page={page} />
           </Sequence>
         );
@@ -287,8 +313,8 @@ export const CaptionedVideo: React.FC = () => {
 ```tsx
 <div
   style={{
-    WebkitTextStroke: '4px black',
-    paintOrder: 'stroke',
+    WebkitTextStroke: "4px black",
+    paintOrder: "stroke",
   }}
 >
   {text}
